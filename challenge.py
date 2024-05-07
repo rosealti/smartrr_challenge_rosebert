@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 df_raw = pd.read_csv('stock_data.csv')
 print("Raw Data", "\n", df_raw, "\n")
 
+
+
 # Perform data cleaning and preprocessing
 #   Set data types
 df_raw['Date'] = pd.to_datetime(df_raw['Date'])
@@ -14,6 +16,8 @@ if not df_cleaned[df_cleaned.duplicated() == True].empty:
     df_cleaned = df_cleaned.drop_duplicates()
 print("Cleaned Data", "\n", df_raw, "\n")
 df = df_cleaned.copy()
+
+
 
 # Calculate various metrics and generate insights
 # The Open and Close prices over the given time period
@@ -41,11 +45,12 @@ daily_return_percent = (daily_return / df["Open"]) * 100
 avg_daily_returns_percent = sum(daily_return_percent) / number_of_days
 print("Avg Daily Returns Percent", "\n", avg_daily_returns_percent, "\n")
 
+
 # Stock volatility
 #   https://www.investopedia.com/terms/v/volatility.asp
-#   Find the mean of the data set. 
+#   Find the mean of the data set.
 #   Calculate the difference between each data value and the mean aka deviation.
-#   Square the deviations. 
+#   Square the deviations.
 #   Add the squared deviations together.
 #   Divide the sum of the squared deviations by the number of data values.
 close_mean = df["Close"].mean()
@@ -59,6 +64,7 @@ variance_ct = len(square_deviations)
 variance_manual = variance_sum / variance_ct
 print("Variance Manual Calculation:", variance_manual)
 
+
 # The maximum drawdown
 #   https://www.investopedia.com/terms/m/maximum-drawdown-mdd.asp
 #   Identify Peak Value of Portfolio
@@ -70,6 +76,7 @@ trough_value = df["Close"].min()
 difference_trough_peak = trough_value - peak_value
 maximum_drawdown = difference_trough_peak / peak_value
 print("Maximum Drawdown:", maximum_drawdown)
+
 
 # Moving averages
 #   https://www.investopedia.com/terms/s/sma.asp
@@ -119,6 +126,8 @@ for i in range(1, len(nvi_df)):
     else:
         nvi_df.at[i, 'negative_volume_index'] = nvi_df.at[i - 1, 'negative_volume_index']
 print("Negative volume index:", nvi_df['negative_volume_index'])
+
+
 
 # Visualize the stock price trends using Matplotlib
 # Candlestick patterns
